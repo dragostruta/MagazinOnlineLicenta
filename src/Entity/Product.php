@@ -42,6 +42,22 @@ class Product
      */
     private $image;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=News::class, inversedBy="products")
+     */
+    private $news;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ProductCategory::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $productCategory;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=OrderList::class, inversedBy="products")
+     */
+    private $orderList;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +119,42 @@ class Product
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getNews(): ?News
+    {
+        return $this->news;
+    }
+
+    public function setNews(?News $news): self
+    {
+        $this->news = $news;
+
+        return $this;
+    }
+
+    public function getProductCategory(): ?ProductCategory
+    {
+        return $this->productCategory;
+    }
+
+    public function setProductCategory(?ProductCategory $productCategory): self
+    {
+        $this->productCategory = $productCategory;
+
+        return $this;
+    }
+
+    public function getOrderList(): ?OrderList
+    {
+        return $this->orderList;
+    }
+
+    public function setOrderList(?OrderList $orderList): self
+    {
+        $this->orderList = $orderList;
 
         return $this;
     }
