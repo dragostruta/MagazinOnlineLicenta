@@ -18,11 +18,6 @@ class Product
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $product_id;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -47,31 +42,9 @@ class Product
      */
     private $image;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $category_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $product_category_id;
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getProductId(): ?int
-    {
-        return $this->product_id;
-    }
-
-    public function setProductId(int $product_id): self
-    {
-        $this->product_id = $product_id;
-
-        return $this;
     }
 
     public function getTitle(): ?string
@@ -130,30 +103,6 @@ class Product
     public function setImage(string $image): self
     {
         $this->image = $image;
-
-        return $this;
-    }
-
-    public function getCategoryId(): ?int
-    {
-        return $this->category_id;
-    }
-
-    public function setCategoryId(int $category_id): self
-    {
-        $this->category_id = $category_id;
-
-        return $this;
-    }
-
-    public function getProductCategoryId(): ?int
-    {
-        return $this->product_category_id;
-    }
-
-    public function setProductCategoryId(int $product_category_id): self
-    {
-        $this->product_category_id = $product_category_id;
 
         return $this;
     }

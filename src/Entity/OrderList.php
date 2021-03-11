@@ -20,16 +20,6 @@ class OrderList
     /**
      * @ORM\Column(type="integer")
      */
-    private $order_list_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $product_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $quantity;
 
     /**
@@ -45,30 +35,6 @@ class OrderList
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getOrderListId(): ?int
-    {
-        return $this->order_list_id;
-    }
-
-    public function setOrderListId(int $order_list_id): self
-    {
-        $this->order_list_id = $order_list_id;
-
-        return $this;
-    }
-
-    public function getProductId(): ?int
-    {
-        return $this->product_id;
-    }
-
-    public function setProductId(int $product_id): self
-    {
-        $this->product_id = $product_id;
-
-        return $this;
     }
 
     public function getQuantity(): ?int

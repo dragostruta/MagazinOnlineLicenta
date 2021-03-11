@@ -18,11 +18,6 @@ class News
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $news_id;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -38,11 +33,6 @@ class News
     private $image;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $product_id;
-
-    /**
      * @ORM\Column(type="date")
      */
     private $date;
@@ -50,18 +40,6 @@ class News
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNewsId(): ?int
-    {
-        return $this->news_id;
-    }
-
-    public function setNewsId(int $news_id): self
-    {
-        $this->news_id = $news_id;
-
-        return $this;
     }
 
     public function getTitle(): ?string
@@ -96,18 +74,6 @@ class News
     public function setImage(string $image): self
     {
         $this->image = $image;
-
-        return $this;
-    }
-
-    public function getProductId(): ?int
-    {
-        return $this->product_id;
-    }
-
-    public function setProductId(int $product_id): self
-    {
-        $this->product_id = $product_id;
 
         return $this;
     }
