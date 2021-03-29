@@ -4,9 +4,14 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
+use Symfony\Flex\SymfonyBundle;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @Vich\Uploadable
  */
 class Product
 {
@@ -41,6 +46,36 @@ class Product
      * @ORM\Column(type="string", length=255)
      */
     private $image;
+
+    /**
+     * @Vich\UploadableField(mapping = "product_images", fileNameProperty = "image")
+     * File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    public function __construct(){
+        $this->updatedAt = new \DateTime();
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+
+        if($imageFile){
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity=News::class, inversedBy="products")
@@ -116,7 +151,7 @@ class Product
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image)
     {
         $this->image = $image;
 
@@ -157,5 +192,10 @@ class Product
         $this->orderList = $orderList;
 
         return $this;
+    }
+
+    public function  __toString(): string
+    {
+        return $this->getTitle();
     }
 }

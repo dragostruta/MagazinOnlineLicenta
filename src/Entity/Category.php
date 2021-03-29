@@ -72,12 +72,16 @@ class Category
     public function removeProductCategory(ProductCategory $productCategory): self
     {
         if ($this->productCategories->removeElement($productCategory)) {
-            // set the owning side to null (unless already changed)
             if ($productCategory->getCategory() === $this) {
                 $productCategory->setCategory(null);
             }
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 }

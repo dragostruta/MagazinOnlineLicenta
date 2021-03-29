@@ -6,9 +6,12 @@ use App\Repository\NewsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=NewsRepository::class)
+ * @Vich\Uploadable
  */
 class News
 {
@@ -35,7 +38,28 @@ class News
     private $image;
 
     /**
-     * @ORM\Column(type="date")
+     * @Vich\UploadableField(mapping = "product_images", fileNameProperty = "image")
+     * File
+     */
+    private $imageFile;
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+
+        if ($imageFile){
+            $this->date = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
      */
     private $date;
 
@@ -47,6 +71,7 @@ class News
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->date = new \DateTime();
     }
 
     public function getId(): ?int
@@ -83,7 +108,7 @@ class News
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image)
     {
         $this->image = $image;
 
@@ -123,7 +148,6 @@ class News
     public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {
-            // set the owning side to null (unless already changed)
             if ($product->getNews() === $this) {
                 $product->setNews(null);
             }
