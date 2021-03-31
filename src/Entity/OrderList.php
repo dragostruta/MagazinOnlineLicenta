@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Product;
 use App\Repository\OrderListRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -42,6 +43,10 @@ class OrderList
     public function __construct()
     {
         $this->products = new ArrayCollection();
+    }
+
+    public static function propertyName(string $string)
+    {
     }
 
     public function getId(): ?int
@@ -114,4 +119,12 @@ class OrderList
 
         return $this;
     }
+
+    public function __toString() : string
+    {
+        return 'quantity: '.$this->getQuantity().
+                ' price: '.$this->getPrice().
+                ' total: '.$this->getTotal();
+    }
+
 }

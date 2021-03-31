@@ -267,4 +267,13 @@ class User
 
         return $this;
     }
+
+    public function __toString() : string{
+        return  $this->getFirstName().' '.
+                $this->getLastName().' '.
+                $this->getCountry().', '.
+                $this->getCity().', '.
+                $this->getRegion().', '.
+                $this->getAdress();
+    }
 }

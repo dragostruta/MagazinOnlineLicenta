@@ -56,7 +56,7 @@ class AppFixtures extends Fixture
             $news = new News();
             $news->setTitle('title: '.$i);
             $news->setDescription('description: '.$i);
-            $news->setImage('image: '.$i);
+            $news->setImage('https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg');
             $news->setDate($date);
 
             $product = new Product();
@@ -64,7 +64,7 @@ class AppFixtures extends Fixture
             $product->setBrand("brand: ",$i);
             $product->setDescription("description..");
             $product->setPrice(mt_rand(50,1000));
-            $product->setImage('image: '.$i);
+            $product->setImage('https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg');
             $product->setNews($news);
             $product->setProductCategory($productCategory);
             $product->setOrderList($orderList);
