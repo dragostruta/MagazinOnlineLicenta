@@ -49,6 +49,7 @@ class OrderCrudController extends AbstractCrudController
             DateField::new('date'),
             AssociationField::new('orderList', 'Cart Info'),
             AssociationField::new('user', 'User Info'),
+//            yield AssociationField::new('products'),
         ];
     }
 

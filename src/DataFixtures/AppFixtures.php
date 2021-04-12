@@ -11,9 +11,13 @@ use App\Entity\ProductCategory;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    public function __construct(UserPasswordEncoderInterface $encoder){
+        $this->encoder = $encoder;
+    }
     public function load(ObjectManager $manager)
     {
         for ($i=1;$i<11;$i++){
@@ -31,14 +35,15 @@ class AppFixtures extends Fixture
             $user->setAge(mt_rand(18,70));
             $user->setPhone(mt_rand(700000000, 800000000));
             $user->setUsername('username: '.$i);
-            $user->setPassword('password: '.$i);
+            $user->setPassword($this->encoder->encodePassword($user, '0000'));
+            $user->setRoles('ROLE_USER');
 
             $orderList = new OrderList();
             $orderList->setQuantity(mt_rand(1, 5));
             $orderList->setPrice(mt_rand(1.00, 10000.00));
-            $qunatity = $orderList->getQuantity($orderList);
-            $price = $orderList->getPrice($orderList);
-            $total = $qunatity*$price;
+            $quantity = $orderList->getQuantity($orderList);
+            $price = $orderList->getPrice();
+            $total = $quantity * $price;
             $orderList->setTotal($total);
 
             $order = new Order();
@@ -61,7 +66,7 @@ class AppFixtures extends Fixture
 
             $product = new Product();
             $product->setTitle("title: ".$i);
-            $product->setBrand("brand: ",$i);
+            $product->setBrand("brand: ".$i);
             $product->setDescription("description..");
             $product->setPrice(mt_rand(50,1000));
             $product->setImage('https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg');
@@ -77,6 +82,20 @@ class AppFixtures extends Fixture
             $manager->persist($order);
             $manager->persist($user);
         }
+
+        $user->setFirstName('ADMIN');
+        $user->setLastName('ADMIN');
+        $user->setEmail('admin@admin.ro');
+        $user->setCountry('TEST');
+        $user->setCity('TEST');
+        $user->setRegion('TEST');
+        $user->setAdress('TEST');
+        $user->setZipcode(00000);
+        $user->setAge('99');
+        $user->setPhone('000000000');
+        $user->setUsername('admin');
+        $user->setPassword($this->encoder->encodePassword($user, 'admin'));
+        $user->setRoles('ROLE_ADMIN');
 
         $manager->flush();
     }

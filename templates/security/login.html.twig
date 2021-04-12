@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conectare!{% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(err.messageData, 'security')}}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3" align="right">
+            {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <div class = main>
+        <form method="post" class="form1">
+    <h1 class="h3 mb-3 font-weight-normal" align="center">Conectare</h1>
+    <input type="text" name="username" id="inputUsername" class="form-control" required autofocus placeholder="Username">
+    <input type="password" name="password" id="inputPassword" class="form-control" required placeholder="Parolă">
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Înregistrare
+    </button>
+            <div class="checkbox mb-3" align="center">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Ține-mă minte
+                </label>
+            </div>
+            <p class="forgot" align="center"><a href="#">Am uitat parola?</a> | <a href="{{ path('register_page') }}">Crează cont</a> </p>
+</form>
+    </div>
+{% endblock %}

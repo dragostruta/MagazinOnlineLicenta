@@ -6,11 +6,18 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Form\Extension\Validator;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("email", message = "Acest e-mail este folosit!")
+ * @UniqueEntity("username", message = "Contul de utilizator cu numele '{{ value }}' este folosit!")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -30,7 +37,8 @@ class User
     private $last_name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Email()
      */
     private $email;
 
@@ -70,7 +78,7 @@ class User
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique = true)
      */
     private $username;
 
@@ -83,6 +91,11 @@ class User
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
      */
     private $orders;
+
+    /**
+     * @ORM\Column (type="string", nullable = true)
+     */
+    private $roles;
 
     public function __construct()
     {
@@ -275,5 +288,46 @@ class User
                 $this->getCity().', '.
                 $this->getRegion().', '.
                 $this->getAdress();
+    }
+
+    public function setRoles($roles){
+        $this->roles = $roles;
+    }
+
+    public function getRoles()
+    {
+        $roles = $this->roles;
+
+        return [$roles];
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->email,
+            $this->password
+        ]);
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->username,
+            $this->email,
+            $this->password
+            ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

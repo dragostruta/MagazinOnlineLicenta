@@ -20,8 +20,6 @@ class OrderListCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IntegerField::new('id')
-                ->hideOnForm(),
             IntegerField::new('quantity'),
             NumberField::new('price'),
             NumberField::new('total')->hideOnForm(),
