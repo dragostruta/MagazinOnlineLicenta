@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Pagina de înregistrare {% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+
+    <div class="error-message" align="center">
+        {{ form_errors(form.email) }}
+        {{ form_errors(form.username) }}
+        {{ form_errors(form.password.first) }}
+    </div>
+
+    <div class="main">
+
+        <h1 class="h3 mb-3 font-weight-normal" align="center">Formular de înregistrare</h1>
+
+        {{ form_start(form) }}
+
+        <div class="user-details">
+
+            <div style="width: 50%; float: left">
+
+                {{ form_widget(form.first_name) }}
+
+                {{ form_widget(form.last_name) }}
+
+                {{ form_widget(form.email) }}
+
+                {{ form_widget(form.phone) }}
+
+                {{ form_widget(form.username) }}
+
+                {{ form_widget(form.password.first) }}
+
+                {{ form_widget(form.password.second) }}
+
+            </div>
+
+            <div style="width: 50%; float: right">
+
+                {{ form_widget(form.age) }}
+
+                {{ form_widget(form.country) }}
+
+                {{ form_widget(form.region) }}
+
+                {{ form_widget(form.city) }}
+
+                {{ form_widget(form.adress) }}
+
+                {{ form_widget(form.zipcode) }}
+
+                {{ form_widget(form.Inregistrare) }}
+
+            </div>
+
+        </div>
+
+            {{ form_end(form) }}
+
+        <p class="fa-registered" ><a href="{{ path('app_login') }}">Am deja un cont</a></p>
+    </div>
+{% endblock %}

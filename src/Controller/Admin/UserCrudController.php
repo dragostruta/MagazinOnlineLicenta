@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
@@ -16,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -54,11 +56,12 @@ class UserCrudController extends AbstractCrudController
             TextField::new('city'),
             TextField::new('region'),
             TextField::new('adress'),
-            NumberField::new('zipcode'),
+            IntegerField::new('zipcode'),
             NumberField::new('age'),
             TelephoneField::new('phone'),
             TextField::new('username'),
             TextField::new('password')->hideOnIndex(),
+
         ];
     }
 

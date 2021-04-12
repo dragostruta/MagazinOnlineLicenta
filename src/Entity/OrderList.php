@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Entity\Product;
 use App\Repository\OrderListRepository;
+use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -91,7 +91,7 @@ class OrderList
     }
 
     /**
-     * @return Collection|Product[]
+     * @return Collection
      */
     public function getProducts(): Collection
     {
@@ -111,7 +111,6 @@ class OrderList
     public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {
-            // set the owning side to null (unless already changed)
             if ($product->getOrderList() === $this) {
                 $product->setOrderList(null);
             }
@@ -126,5 +125,4 @@ class OrderList
                 ' price: '.$this->getPrice().
                 ' total: '.$this->getTotal();
     }
-
 }

@@ -196,6 +196,6 @@ class Product
 
     public function  __toString(): string
     {
-        return $this->getTitle();
+        return $this->title;
     }
 }
