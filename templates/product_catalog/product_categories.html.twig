@@ -1,0 +1,96 @@
+<style>
+    
+</style>
+
+
+{% block body %}
+
+    {% set array_product_category = [] %}
+    {% set array_category = [] %}
+
+{#    <form action="" method="post">#}
+
+{#        <nav>#}
+{#            <ul>#}
+{#                <label for="">Alege o categorie</label>#}
+{#            {% for item in product_categories %}#}
+
+{#                {% if item.getCategory not in array_category %}#}
+
+{#                    <ul>#}
+{#                        <li>{{ item.getCategory.name }}</li>#}
+
+{#                    {% set array_category = array_category|merge([item.getCategory]) %}#}
+
+{#                {% endif %}#}
+
+{#                {% set id = item.getCategory.id %}#}
+
+{#                {% for i in product_categories %}#}
+
+{#                    {% if i.getCategory.id == id %}#}
+
+{#                        {% if i not in array_product_category%}#}
+{#                            <ul>#}
+{#                                <li><button type="submit" name="submit-category" value="{{ i.name }}">{{ i.name }}</button></li>#}
+{#                            </ul>#}
+
+{#                            {% set array_product_category = array_product_category|merge([i]) %}#}
+
+{#                        {% endif %}#}
+
+{#                    {% endif %}#}
+
+{#                {% endfor %}#}
+{#                </ul>#}
+{#            {% endfor %}#}
+
+{#        </ul>#}
+
+{#        </nav>#}
+
+{#    </form>#}
+
+
+    <form action="" method="post">
+        <nav style="float: left; margin-left: 9rem; width: auto" >
+            <ul>
+                <li><a href="#" style="font-size: 18px">Alege o categorie ▼</a>
+                    <ul>
+                        {% for item in product_categories %}
+
+                            {% if item.getCategory not in array_category %}
+
+                            <li><b>{{ item.getCategory.name }}</b></li>
+
+                                {% set array_category = array_category|merge([item.getCategory]) %}
+
+                            {% endif %}
+
+                            {% set id = item.getCategory.id %}
+
+                            {% for i in product_categories %}
+
+                                {% if i.getCategory.id == id %}
+
+                                {% if i not in array_product_category%}
+
+                                <li style="width: 250px"><button type="submit" name="submit-category" value="{{ i.name }}">{{ i.name }}</button></li>
+
+                                    {% set array_product_category = array_product_category|merge([i]) %}
+
+                                    {% endif %}
+
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </form>
+
+{% endblock %}

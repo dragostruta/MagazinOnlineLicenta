@@ -17,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -48,18 +49,21 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $imageFile = Field::new('imageFile')
-                ->setFormType(VichImageType::class);
-        $image = ImageField::new('Image')
-                ->setFormType(VichImageType::class);
+        $imageFile = Field::new('image')
+                ->setFormType(TextType::class);
+        $image =  ImageField::new('image')
+            ->setFormType(VichImageType::class);
         $fields = [
             IntegerField::new('id')
                 ->hideOnForm(),
             TextField::new('title'),
             TextField::new('brand'),
-            TextEditorField::new('description'),
+            TextareaField::new('description'),
             NumberField::new('price'),
             AssociationField::new('productCategory'),
+            Field::new('image_one')->setFormType(TextType::class)->hideOnIndex(),
+            Field::new('image_two')->setFormType(TextType::class)->hideOnIndex(),
+            Field::new('image_three')->setFormType(TextType::class)->hideOnIndex(),
         ];
 
         if($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL){

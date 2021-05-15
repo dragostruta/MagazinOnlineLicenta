@@ -48,10 +48,67 @@ class Product
     private $image;
 
     /**
-     * @Vich\UploadableField(mapping = "product_images", fileNameProperty = "image")
-     * File
+     * @ORM\Column(type="string", length=255)
      */
-    private $imageFile;
+    private $image_one;
+
+    /**
+     * @return mixed
+     */
+    public function getImageOne()
+    {
+        return $this->image_one;
+    }
+
+    /**
+     * @param mixed $image_one
+     */
+    public function setImageOne($image_one): void
+    {
+        $this->image_one = $image_one;
+    }
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image_two;
+
+    /**
+     * @return mixed
+     */
+    public function getImageTwo()
+    {
+        return $this->image_two;
+    }
+
+    /**
+     * @param mixed $image_two
+     */
+    public function setImageTwo($image_two): void
+    {
+        $this->image_two = $image_two;
+    }
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image_three;
+
+    /**
+     * @return mixed
+     */
+    public function getImageThree()
+    {
+        return $this->image_three;
+    }
+
+    /**
+     * @param mixed $image_three
+     */
+    public function setImageThree($image_three): void
+    {
+        $this->image_three = $image_three;
+    }
 
     /**
      * @ORM\Column(type="datetime")
@@ -68,7 +125,7 @@ class Product
         return $this->imageFile;
     }
 
-    public function setImageFile(File $imageFile = null)
+    public function setImageFile(?string $imageFile = null)
     {
         $this->imageFile = $imageFile;
 

@@ -1,0 +1,298 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poopins', sans-serif;
+        }
+        .container{
+            width: 100%;
+            min-height: 100vh;
+            background-color: #e6f5ff;
+        }
+        .content-header-title{
+            padding-top: 30px;
+            text-align: center;
+            font-size: 50px;
+            color: #222;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .content-header-title:after{
+            content: "";
+            height: 5px;
+            width: 325px;
+            background-color: #222;
+            border-radius: 5px;
+            display: block;
+            margin: auto;
+            margin-bottom: 30px;
+        }
+        .row{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+        }
+        .card{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow: 0 2px 4px rgb(0, 0, 25%);
+            width: 325px;
+            text-align: center;
+            margin: 25px;
+            cursor: pointer;
+            background-color: #fff;
+        }
+        .image-section{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-section img{
+            width: 100%;
+            height: auto;
+        }
+        .description{
+            text-align: center;
+            margin-top: 20px;
+        }
+        .description h1{
+            font-size: 20px;
+            text-transform: uppercase;
+            color: #222;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+        .description p{
+            font-size: 17px;
+            letter-spacing: 1.5px;
+            margin-top: 10px;
+        }
+        .description span{
+            margin-left: 8px;
+        }
+        .button-gorup{
+            margin-top: 30px;
+            padding-bottom: 20px;
+        }
+        .button-gorup .details{
+            background-color: #1976d2;
+            font-size: 14px;
+            padding: 8px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+        .button-gorup .details:hover{
+            background-color: #0b348d;
+            transition: 0.6s ease;
+        }
+        .button-gorup .cart{
+            background-color: #f2533a;
+            font-size: 14px;
+            padding: 8px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+        .button-gorup .cart:hover{
+            background-color: #222;
+            transition: 0.6s ease;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        button {
+            all: unset;
+            color: #222;
+            -webkit-text-fill-color: #222;
+            cursor: pointer;
+        }
+
+        button:focus {
+            outline: orange 5px auto;
+        }
+        nav{
+            float: right;
+            width: 12%;
+            height: 60px;
+            margin-right: 9rem;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+        }
+        nav p{
+            font-family: Arial sans-serif;
+            color: #222;
+            font-size: 24px;
+            line-height: 55px;
+            float: left;
+            padding: 0px 20px;
+        }
+        nav ul{
+            float: left;
+        }
+        nav ul li{
+            float: left;
+            list-style: none;
+            position: relative;
+        }
+        nav ul li a{
+            display: block;
+            font-family: Arial sans-serif;
+            color: #222;
+            font-size: 14px;
+            padding: 22px 14px;
+            text-decoration: none;
+        }
+        nav ul li button{
+            display: block;
+            font-family: Arial sans-serif;
+            color: #222;
+            font-size: 14px;
+            padding: 22px 14px;
+            text-decoration: none;
+        }
+
+        nav ul li ul{
+            display: none;
+            position: absolute;
+            background-color: #FFFFFF;
+            padding: 10px;
+            border-radius: 0 0 6px 6px;
+        }
+        nav ul li:hover ul{
+            display: block;
+        }
+        nav ul li ul li {
+            width: 90px;
+            border-radius: 4px;
+        }
+        nav ul li ul li button{
+            padding: 10px 14px;
+        }
+        nav ul li ul li button:hover{
+            background-color: #f3f3f3;
+        }
+        nav ul li ul li a{
+            padding: 8px 14px;
+        }
+        nav ul li ul li a:hover{
+            background-color: #f3f3f3;
+        }
+        .search {
+            width: 100%;
+            position: relative;
+            display: flex;
+        }
+        .searchTerm {
+            width: 100%;
+            border: 3px solid #00B4CC;
+            border-right: none;
+            padding: 5px;
+            height: 38px;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            color: #9DBFAF;
+        }
+        .searchTerm:focus{
+            color: #00B4CC;
+        }
+
+        .searchButton {
+            width: 40px;
+            height: 36px;
+            border: 1px solid #00B4CC;
+            background: #00B4CC;
+            text-align: center;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .wrap{
+            width: 30%;
+            position: relative;
+            padding-top: 60px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+    </style>
+
+    <section class="container">
+        <h1 class="content-header-title">Catalog de produse</h1>
+
+        {{ render(controller('App\\Controller\\ProductCategoryController::show')) }}
+
+        <script src="https://kit.fontawesome.com/26d4a64054.js" crossorigin="anonymous"></script>
+        <form action="" method="post">
+            {% set array_brand = [] %}
+            <nav>
+                <ul>
+                    <li><a href="#">Brand ▼</a>
+                        <ul>
+                            {% for product in products %}
+                                {% if product.brand not in array_brand %}
+                                    <li><button type="submit" name="submit-brand" value="{{ product.brand }}">{{ product.brand }}</button></li>
+                                    {% set array_brand = array_brand|merge([product.brand]) %}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li><a href="#">Sortare dupa ▼</a>
+                        <ul>
+                            <li><button type="submit" name="by_title">Nume</button></li>
+                            <li><button type="submit" name="price_asc">Pret crescator</button></li>
+                            <li><button type="submit" name="price_desc">Pret descrescator</button></li>
+                            <li><button type="submit" name="by_date">Cele mai noi</button></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="wrap">
+                <div class="search">
+                    <input type="text" class="searchTerm" name="search" placeholder="Cauta..">
+                    <button type="submit" name="submit-search" class = "searchButton"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="row">
+            {% for product in products %}
+                    <div class="card">
+                        <div class="image-section">
+                            <img src="{{ product.image }}" alt="{{ product.title }}">
+                        </div>
+                        <div class="description">
+                            <h1>{{ product.title }}</h1>
+                            <p><b>Pret: </b><span>{{ product.price }} lei</span></p>
+                        </div>
+                        <div class="button-gorup">
+                            <a href="{{ path('product_detail', {title: product.title}) }}" class="details">Detalii</a>
+                            <a href="#" class="cart">Adaugă în coș</a>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

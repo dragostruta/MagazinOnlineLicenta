@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
@@ -61,7 +62,12 @@ class UserCrudController extends AbstractCrudController
             TelephoneField::new('phone'),
             TextField::new('username'),
             TextField::new('password')->hideOnIndex(),
-
+            ChoiceField::new('roles')->setChoices(
+                [
+                    'Administrator' => 'ROLE_ADMIN',
+                    'Utilizator' => 'ROLE_USER',
+                ]
+            ),
         ];
     }
 

@@ -70,6 +70,9 @@ class AppFixtures extends Fixture
             $product->setDescription("description..");
             $product->setPrice(mt_rand(50,1000));
             $product->setImage('https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg');
+            $product->setImageOne('https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg');
+            $product->setImageTwo('https://img-19.ccm2.net/8vUCl8TXZfwTt7zAOkBkuDRHiT8=/1240x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg');
+            $product->setImageThree('https://img-19.ccm2.net/8vUCl8TXZfwTt7zAOkBkuDRHiT8=/1240x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg');
             $product->setNews($news);
             $product->setProductCategory($productCategory);
             $product->setOrderList($orderList);
