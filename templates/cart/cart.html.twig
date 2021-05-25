@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cos de cumparaturi{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+          crossorigin="anonymous">
+
+    <style>
+        h1{
+            padding: 0;
+        }
+        .container{
+            margin-left: 0;
+        }
+        .col-md-8{
+            float: left;
+        }
+        .col-md-4{
+            float: right;
+        }
+        .card-header{
+            background-color: #cbe5f8;
+            font-family: Arial sans-serif;
+            font-size: 24px;
+        }
+        .btn-remove{
+            color: red;
+            border: white;
+            background-color: white;
+            text-transform: uppercase;
+        }
+        .button-send{
+            background-color: #1aa3ff;
+            border: none;
+            color: white;
+            padding: 13px 190px;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Produsele tale</h1>
+        {% if cart.items.count > 0 %}
+            <div class="row mt-4">
+                <div class="col-md-8"></div>
+                <div class="col-md-4"></div>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                Cosul tau este gol, intoarce-te la <a href="{{ path('product_catalog') }}">catalogul de produse</a>.
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-8">
+        {{ form_start(form) }}
+        <div class="card">
+            <div class="card-header">
+                <h5 style="float: left; font-size: 24px"><b>Produse</b></h5>
+                <div class="ml-auto" style="float: right">
+                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                    {{ form_widget(form.clear, {'attr': {'class': 'btn btn-danger'}}) }}
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for item in form.items %}
+                    <li class="list-group-item d-flex">
+                        <div class="flex-fill mr-2">
+                            <img src="{{ item.vars.data.product.image }}" width="124" alt="Product image">
+                        </div>
+                        <div class="flex-fill mr-2">
+                            <h5 class="mt-0 mb-0">{{ item.vars.data.product.title }}</h5>
+                            <small>{{ item.vars.data.product.description[:50] }}...</small>
+                            <div class="form-inline mt-2">
+                                <div class="form-group mb-0 mr-2">
+                                    {{ form_widget(item.quantity, {
+                                        'attr': {
+                                            'class': 'form-control form-control-sm ' ~ (item.quantity.vars.valid ? '' : 'is-invalid')
+                                        }
+                                    }) }}
+                                    <div class="invalid-feedback">
+                                        {{ form_errors(item.quantity) }}
+                                    </div>
+                                </div>
+                                {{ form_widget(item.remove, {'attr': {'class': 'btn btn-danger'}}) }}
+                            </div>
+                        </div>
+                        <div class="flex-fill mr-2 text-right">
+                            <b>{{ item.vars.data.product.price }} Lei</b>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    <form action="" method="post">
+    <div class="col-md-4">
+        <div class="card mt-4 mt-md-0">
+            <h5 class="card-header"><b>Rezumat</b></h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between">
+                    <div><b>Total</b></div>
+                    <span><b>{{ cart.total }} Lei</b></span>
+                </li>
+            </ul>
+            <div class="card-body">
+                <button type="submit" name="submitOrder" class="btn btn-primary btn-block">Trimite comanda!</button>
+            </div>
+        </div>
+    </div>
+    </form>
+{% endblock %}
