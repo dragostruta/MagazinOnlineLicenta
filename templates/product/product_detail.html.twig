@@ -10,10 +10,17 @@
 {% endblock %}
 
 {% block body %}
+    <style>
+        .img-item{
+            width: 150px;
+            height: auto;
+        }
+    </style>
+
     <link rel="stylesheet" href="{{ asset('css/product_detail.css') }}">
     <div class = "card-wrapper">
         <div class = "card">
-            <!-- card left -->
+
             <div class = "product-imgs">
                 <div class = "img-display">
                     <div class = "img-showcase">
@@ -24,7 +31,7 @@
                     </div>
                 </div>
                 <div class = "img-select">
-                    <div class = "img-item">
+                    <div class = "img-item" >
                         <a href = "#" data-id = "1">
                             <img src = "{{ product.image }}" alt = "shoe image">
                         </a>
@@ -61,18 +68,22 @@
                         </label><p>{{ product.brand }}</p>
                         <p>{{ product.description }}</p>
                     </span>
-
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.quantity) }}
+                        {{ form_widget(form.quantity, {
+                            'attr': {
+                                'class': 'form-control ' ~ (form.quantity.vars.valid ? '' : 'is-invalid')
+                            }
+                        }) }}
+                        <div class="invalid-feedback">
+                            {{ form_errors(form.quantity) }}
+                        </div>
+                    </div>
+                    {{ form_widget(form.add, {'attr': {'class': 'btn btn-warning w-25'}}) }}
+                    {{ form_end(form) }}
                 </div>
-
-                <div class = "purchase-info">
-                    <input type = "number" min = "0" value = "1">
-                    <button type = "button" class = "btn">
-                        Adauga in cos <i class = "fas fa-shopping-cart"></i>
-                    </button>
                 </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         const imgs = document.querySelectorAll('.img-select a');
@@ -95,5 +106,6 @@
 
         window.addEventListener('resize', slideImage);
     </script>
+
 
 {% endblock %}

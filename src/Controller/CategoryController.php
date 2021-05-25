@@ -10,10 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CategoryController extends AbstractController
 {
-
-    /**
-     * @Route("/test", name = "test")
-     */
     public function show(CategoryRepository $categoryRepository): Response
     {
         return $this->render('product_catalog/test.html.twig',[

@@ -146,7 +146,7 @@ class Product
     private $productCategory;
 
     /**
-     * @ORM\ManyToOne(targetEntity=OrderList::class, inversedBy="products")
+     * @ORM\OneToMany (targetEntity=OrderList::class, mappedBy="orderList")
      */
     private $orderList;
 
@@ -253,6 +253,8 @@ class Product
 
     public function  __toString(): string
     {
-        return $this->title;
+        return ' nume: '.$this->getTitle().
+                ' pret: '.$this->getPrice().
+                ' descriere: '.$this->getDescription();
     }
 }

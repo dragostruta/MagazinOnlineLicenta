@@ -7,6 +7,7 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OrderListRepository::class)
@@ -22,31 +23,25 @@ class OrderList
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\GreaterThanOrEqual(1)
      */
     private $quantity;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\ManyToOne (targetEntity=Product::class)
+     * @ORM\JoinColumn (nullable = false)
      */
-    private $price;
-
+    private $product;
     /**
-     * @ORM\Column(type="float")
+     * @ORM\ManyToOne (targetEntity=Order::class, inversedBy = "items")
+     * @ORM\JoinColumn (nullable = false)
      */
-    private $total;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="orderList")
-     */
-    private $products;
+    private $orderRef;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
-    }
-
-    public static function propertyName(string $string)
-    {
     }
 
     public function getId(): ?int
@@ -66,21 +61,12 @@ class OrderList
         return $this;
     }
 
-    public function getPrice(): ?float
+    /**
+     * @return float|int
+     */
+    public function getTotal(): float
     {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getTotal(): ?float
-    {
-        return $this->total;
+        return $this->getProduct()->getPrice() * $this->getQuantity();
     }
 
     public function setTotal(float $total): self
@@ -90,39 +76,33 @@ class OrderList
         return $this;
     }
 
+    public function getProduct(): ?Product{
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self{
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getOrderRef(): ?Order
+    {
+        return $this->orderRef;
+    }
+
+    public function setOrderRef(?Order $orderRef): self{
+        $this->orderRef = $orderRef;
+
+        return $this;
+    }
+
     /**
-     * @return Collection
+     * @param OrderList $item
+     *
+     * @return bool
      */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->setOrderList($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->products->removeElement($product)) {
-            if ($product->getOrderList() === $this) {
-                $product->setOrderList(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function __toString() : string
-    {
-        return 'quantity: '.$this->getQuantity().
-                ' price: '.$this->getPrice().
-                ' total: '.$this->getTotal();
+    public function equals(OrderList $item): bool{
+        return $this->getProduct()->getId() === $item->getProduct()->getId();
     }
 }

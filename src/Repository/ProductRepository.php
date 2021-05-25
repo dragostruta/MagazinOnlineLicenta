@@ -64,7 +64,7 @@ class ProductRepository extends ServiceEntityRepository
 
         if (isset($_POST['submit-brand'])) {
             $brandq = $_POST['submit-brand'];
-            $sql = 'SELECT * FROM product WHERE brand=? ASC';
+            $sql = 'SELECT * FROM product WHERE brand=?';
             $stmt = $conn->prepare($sql);
             $stmt->execute(array($brandq));
 

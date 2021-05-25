@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use function Sodium\add;
 
@@ -46,16 +47,15 @@ class OrderCrudController extends AbstractCrudController
         return [
             IntegerField::new('id')
                 ->hideOnForm(),
-            DateField::new('date'),
-            AssociationField::new('orderList', 'Cart Info'),
+            DateTimeField::new('created_at'),
+            DateTimeField::new('updated_at'),
             AssociationField::new('user', 'User Info'),
-//            yield AssociationField::new('products'),
         ];
     }
 
     public function configureFilters(Filters $filters): Filters
     {
-        return $filters ->add('date')
+        return $filters ->add('created_at')
                         ->add('user');
     }
 

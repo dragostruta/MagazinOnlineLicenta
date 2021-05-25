@@ -272,7 +272,6 @@ class User implements UserInterface, \Serializable
     public function removeOrder(Order $order): self
     {
         if ($this->orders->removeElement($order)) {
-            // set the owning side to null (unless already changed)
             if ($order->getUser() === $this) {
                 $order->setUser(null);
             }

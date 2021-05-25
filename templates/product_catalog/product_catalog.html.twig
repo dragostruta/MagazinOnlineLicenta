@@ -51,7 +51,7 @@
             text-align: center;
             margin: 25px;
             cursor: pointer;
-            background-color: #fff;
+            background-color: #ffffff;
         }
         .image-section{
             width: 100%;
@@ -288,7 +288,7 @@
                             <p><b>Pret: </b><span>{{ product.price }} lei</span></p>
                         </div>
                         <div class="button-gorup">
-                            <a href="{{ path('product_detail', {title: product.title}) }}" class="details">Detalii</a>
+                            <a href="{{ path('product_detail', {id: product.id}) }}" class="details">Detalii</a>
                             <a href="#" class="cart">Adaugă în coș</a>
                         </div>
                     </div>
