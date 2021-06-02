@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ANDOMAELECTRO{% endblock %}
+
+{% block body %}
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            background-image: url({{ asset('uploads/images/1236589.jpg') }});
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: initial;
+            background-position-y: 100px;
+        }
+        h1 {
+            color: #1c6eff;
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: 8px;
+            margin-bottom: 2rem;
+            margin-top: 6rem;
+            margin-left: 5rem;
+        }
+        h2 {
+            font-size: 4rem;
+            font-weight: 400;
+            margin-left: 5rem;
+        }
+        .image{
+            margin-top: 6rem;
+            margin-bottom: 5rem;
+            text-align: center;
+        }
+        img{
+            border-radius: 200px;
+        }
+        p{
+            font-size: 2rem;
+            color: black;
+            line-height: 5rem;
+            margin-bottom: 5rem;
+            margin-left: 50rem;
+        }
+        a{
+            color: #eeeeee;
+        }
+        button{
+            all:unset;
+        }
+        .btn{
+            display: inline-block;
+            padding: 2.7rem;
+            margin-bottom: 50px;
+            margin-left: 50rem;
+            background: blue;
+            font-size: 2rem;
+            text-decoration: none;
+            color: #eeeeee;
+            border-radius: 10px;
+            transition: background 0.5s;
+        }
+        .btn:hover{
+            background: #0b348d;
+        }
+    </style>
+
+    <div class="container">
+        <h1>ANDOMAELECTRO</h1>
+        <h2>Magazin online</h2>
+        <div class="image">
+            <img src="{{ asset('/uploads/images/logo/AndomaElectro_logo.jpg') }}" alt="LOGO" width="400">
+        </div>
+            <b><p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Aspernatur atque deleniti error fugit illo iste iure laborum natus
+                    nisi quia repellat, sed ut. Consequuntur deserunt dolor eum laudantium reiciendis sunt!
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, vitae.
+                </p></b>
+        <div class="btn">
+            <button>
+                <a href="{{ path('product_catalog') }}">Vizualizeaza catalogul de produse</a>
+            </button>
+        </div>
+    </div>
+{% endblock %}
