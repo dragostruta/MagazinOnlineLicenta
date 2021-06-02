@@ -11,7 +11,7 @@
         <meta name="generator" content="EasyAdmin" />
     {% endblock head_metas %}
 
-    <title>{% block page_title %}{{ block('content_title')|striptags|raw }}{% endblock %}</title>
+    <title>{% block page_title %}Admin{% endblock %}</title>
 
     {% block head_stylesheets %}
         <link rel="stylesheet" href="{{ asset('bundles/easyadmin/app.css') }}">
@@ -121,9 +121,6 @@
                                             <img class="user-avatar" src="{{ ea.userMenu.avatarUrl }}" />
                                         {% endif %}
                                     {% endif %}
-                                    {% if ea.userMenu.isNameDisplayed %}
-                                        <span class="user-name">{{ ea.userMenu.name }}</span>
-                                    {% endif %}
                                 </div>
                             {% endblock header_custom_menu %}
                         </div>
@@ -153,7 +150,6 @@
                                         <div class="d-flex flex-row justify-content-between align-content-center w-100">
                                             <div class="content-header-title">
                                                 <h1 class="title">
-                                                    {% block content_title %}{% endblock %}
 
                                                     {% block content_help %}
                                                         {% if has_help_message %}

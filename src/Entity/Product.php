@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
 use Symfony\Flex\SymfonyBundle;
@@ -10,6 +11,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
+ * @ORM\Table (name = "Product")
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @Vich\Uploadable
  */
@@ -135,7 +137,7 @@ class Product
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity=News::class, inversedBy="products")
+     * @ORM\OneToMany (targetEntity=News::class, mappedBy="product")
      */
     private $news;
 
@@ -215,14 +217,31 @@ class Product
         return $this;
     }
 
-    public function getNews(): ?News
+    /**
+     * @return Collection|News[]
+     */
+    public function getNews(): Collection
     {
         return $this->news;
     }
 
-    public function setNews(?News $news): self
+    public function addNews(News $news): self
     {
-        $this->news = $news;
+        if (!$this->news->contains($news)) {
+            $this->news[] = $news;
+            $news->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNews(News $news): self
+    {
+        if ($this->news->removeElement($news)) {
+            if ($news->getProduct() === $this) {
+                $news->setProduct(null);
+            }
+        }
 
         return $this;
     }

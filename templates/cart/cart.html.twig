@@ -1,11 +1,80 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Cos de cumparaturi{% endblock %}
-{% block stylesheets %}
+
+{% block head %}
+    <style>
+        .nav{
+            height: 100px;
+            flex-direction: row;
+            box-shadow: 0 2rem 8rem rgba(0,0,0, 0.2);
+            border-radius: .8rem;
+        }
+        .logo{
+            float: left;
+            padding: 5px 150px;
+        }
+        .content{
+            display: inline-block;
+            float: right;
+            margin-left: 500px;
+            padding: 10px 25px;
+            margin-top: 20px;
+            text-align: left;
+            border-bottom-style: none;
+        }
+        .a-content{
+            all: unset;
+            font-family: 'Arial', sans-serif;
+            font-size: 20px;
+            color: black;
+            padding: 14px 25px;
+            border-radius: 100px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .a-content:hover{
+            background-color: #eeeeee;
+            border-bottom-color: #5b5b5b;
+            border-bottom-width: initial;
+        }
+
+
+    </style>
+
+    <div class="nav">
+            <div class="logo">
+                <a href="{{ path('home') }}"><img src="{{ asset('/uploads/images/logo/AndomaElectro_logo.jpg') }}" alt="LOGO" width="90px" style="border-radius: 10px"></a>
+            </div>
+            <div class="content">
+
+                {% if app.user %}
+                    {% if app.user.username == "admin" %}
+                        <a href="{{ path("admin") }}" class="a-content">ADMIN</a>
+
+                    {% endif %}
+                {% endif %}
+                <a href="{{ path('home') }}" class="a-content">Acasa</a>
+                <a href="{{ path('product_catalog') }} " class="a-content">Catalog de produse</a>
+                <a href="{{ path('news') }}" class="a-content">Oferte si Noutati</a>
+                <a href="{{ path('cart') }}" class="a-content">Cos</a>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}" class="a-content">Deconectare</a><div class="a-content" style="all: unset; font-family: Arial, sans-serif; font-size: 20px; padding-left: 2px; color: #66afe9">Bine ai venit, {{ app.user.username }}!</div>
+                {% elseif app.user == null %}
+                    <a href="{{ path('app_login') }}" class="a-content">Inregistrare</a>
+                    <a href="{{ path('register_page') }}" class="a-content">Creaza cont</a>
+                {% endif %}
+
+            </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
           crossorigin="anonymous">
-
     <style>
         h1{
             padding: 0;
@@ -24,28 +93,8 @@
             font-family: Arial sans-serif;
             font-size: 24px;
         }
-        .btn-remove{
-            color: red;
-            border: white;
-            background-color: white;
-            text-transform: uppercase;
-        }
-        .button-send{
-            background-color: #1aa3ff;
-            border: none;
-            color: white;
-            padding: 13px 190px;
-            border-radius: 5px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-        }
+
     </style>
-
-{% endblock %}
-
-{% block body %}
     <div class="container mt-4">
         <h1>Produsele tale</h1>
         {% if cart.items.count > 0 %}

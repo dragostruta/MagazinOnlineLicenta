@@ -34,36 +34,36 @@ class ProductCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
-                return $action->setIcon('fas fa-box')->addCssClass('btn btn-succes');
+                return $action->setIcon('fas fa-box')->addCssClass('btn btn-succes')->setLabel('Adauga un produs');
             })
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
-                return $action->setIcon('fas fa-edit')->addCssClass('btn btn-warning');
+                return $action->setIcon('fas fa-edit')->addCssClass('btn btn-warning')->setLabel('Modifica');
             })
             ->update(Crud::PAGE_INDEX, Action::DETAIL, function (Action $action){
-                return $action->setIcon('fas fa-eye')->addCssClass('btn btn-info');
+                return $action->setIcon('fas fa-eye')->addCssClass('btn btn-info')->setLabel('Vizualizeaza');
             })
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action){
-                return $action->setIcon('fas fa-trash')->addCssClass('btn btn-outline-danger');
+                return $action->setIcon('fas fa-trash')->addCssClass('btn btn-outline-danger')->setLabel('Sterge');
             });
     }
 
     public function configureFields(string $pageName): iterable
     {
         $imageFile = Field::new('image')
-                ->setFormType(TextType::class);
+                ->setFormType(TextType::class)->setLabel('Imaginea de coperta');
         $image =  ImageField::new('image')
-            ->setFormType(VichImageType::class);
+            ->setFormType(VichImageType::class)->setLabel('Imaginea de coperta');
         $fields = [
             IntegerField::new('id')
                 ->hideOnForm(),
-            TextField::new('title'),
-            TextField::new('brand'),
-            TextareaField::new('description'),
-            NumberField::new('price'),
-            AssociationField::new('productCategory'),
-            Field::new('image_one')->setFormType(TextType::class)->hideOnIndex(),
-            Field::new('image_two')->setFormType(TextType::class)->hideOnIndex(),
-            Field::new('image_three')->setFormType(TextType::class)->hideOnIndex(),
+            TextField::new('title', 'Titlu'),
+            TextField::new('brand', 'Brand'),
+            TextareaField::new('description', 'Descriere'),
+            NumberField::new('price', 'Pret'),
+            AssociationField::new('productCategory', 'Subcategoria'),
+            Field::new('image_one', 'Imagine 1')->setFormType(TextType::class)->hideOnIndex(),
+            Field::new('image_two', 'Imagine 2')->setFormType(TextType::class)->hideOnIndex(),
+            Field::new('image_three', 'Imagine 3')->setFormType(TextType::class)->hideOnIndex(),
         ];
 
         if($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL){

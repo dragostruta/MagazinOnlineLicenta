@@ -64,9 +64,30 @@ class News
     private $date;
 
     /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="news")
+     * @ORM\ManyToOne (targetEntity=Product::class, inversedBy="news")
      */
-    private $products;
+    private $product;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $rating;
+
+    /**
+     * @return mixed
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param mixed $rating
+     */
+    public function setRating($rating): void
+    {
+        $this->rating = $rating;
+    }
 
     public function __construct()
     {
@@ -126,32 +147,14 @@ class News
 
         return $this;
     }
-
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
+    public function getProduct(): ?Product
     {
-        return $this->products;
+        return $this->product;
     }
 
-    public function addProduct(Product $product): self
+    public function setProduct(?Product $product): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->setNews($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->products->removeElement($product)) {
-            if ($product->getNews() === $this) {
-                $product->setNews(null);
-            }
-        }
+        $this->product = $product;
 
         return $this;
     }

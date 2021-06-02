@@ -71,9 +71,9 @@ class ProductRepository extends ServiceEntityRepository
             return $stmt->fetchAllAssociative();
         }
 
-        if (isset($_POST['submit-category'])){
+        if (isset($_GET['submit-category'])){
 
-            $categoryq = $_POST['submit-category'];
+            $categoryq = $_GET['submit-category'];
             $sql = 'SELECT * FROM product p JOIN (SELECT * FROM product_category c WHERE name = ?) c ON p.product_category_id = c.id';
 
             $stmt = $conn->prepare($sql);

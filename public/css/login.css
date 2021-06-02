@@ -1,7 +1,3 @@
-body{
-    background-color: #e6f5ff;
-    font-family: sans-serif;
-}
 .main{
     background-color: #FFFFFF;
     width: 400px;
@@ -71,8 +67,7 @@ a{
     color: #33adff;
     text-decoration: none
 }
-.alert-danger {color: #851717
-}
+
 @media (max-width: 600px) {
     .main{
         border-radius: 0;

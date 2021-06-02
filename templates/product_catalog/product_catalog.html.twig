@@ -12,7 +12,6 @@
         .container{
             width: 100%;
             min-height: 100vh;
-            background-color: #e6f5ff;
         }
         .content-header-title{
             padding-top: 30px;
@@ -46,12 +45,12 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            box-shadow: 0 2px 4px rgb(0, 0, 25%);
+            box-shadow: 0 1.4rem 8rem rgba(0,0,0, 0.2);
             width: 325px;
             text-align: center;
             margin: 25px;
             cursor: pointer;
-            background-color: #ffffff;
+
         }
         .image-section{
             width: 100%;
@@ -85,6 +84,11 @@
         .button-gorup{
             margin-top: 30px;
             padding-bottom: 20px;
+        }
+        .button-gorup a{
+            display: block;
+            width: 250px;
+            text-align: center;
         }
         .button-gorup .details{
             background-color: #1976d2;
@@ -131,7 +135,8 @@
             width: 12%;
             height: 60px;
             margin-right: 9rem;
-            background-color: #FFFFFF;
+
+            box-shadow: 0 1.4rem 8rem rgba(0,0,0, 0.2);
             border-radius: 10px;
         }
         nav p{
@@ -232,8 +237,9 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-
     </style>
+
+
 
     <section class="container">
         <h1 class="content-header-title">Catalog de produse</h1>
@@ -289,7 +295,6 @@
                         </div>
                         <div class="button-gorup">
                             <a href="{{ path('product_detail', {id: product.id}) }}" class="details">Detalii</a>
-                            <a href="#" class="cart">Adaugă în coș</a>
                         </div>
                     </div>
             {% endfor %}

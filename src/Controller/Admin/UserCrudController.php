@@ -32,16 +32,16 @@ class UserCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
-                return $action->setIcon('fas fa-user')->addCssClass('btn btn-succes');
+                return $action->setIcon('fas fa-user')->addCssClass('btn btn-succes')->setLabel('Adauga utilizator');
             })
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
-                return $action->setIcon('fas fa-edit')->addCssClass('btn btn-warning');
+                return $action->setIcon('fas fa-edit')->addCssClass('btn btn-warning')->setLabel('Modifica');
             })
             ->update(Crud::PAGE_INDEX, Action::DETAIL, function (Action $action){
-                return $action->setIcon('fas fa-eye')->addCssClass('btn btn-info');
+                return $action->setIcon('fas fa-eye')->addCssClass('btn btn-info')->setLabel('Vizualizeaza');
             })
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action){
-                return $action->setIcon('fas fa-trash')->addCssClass('btn btn-outline-danger');
+                return $action->setIcon('fas fa-trash')->addCssClass('btn btn-outline-danger')->setLabel('Sterge');
             });
     }
 
@@ -50,24 +50,19 @@ class UserCrudController extends AbstractCrudController
         return [
             IntegerField::new('id')
                 ->hideOnForm(),
-            TextField::new('first_name'),
-            TextField::new('last_name'),
-            EmailField::new('email'),
-            TextField::new('country'),
-            TextField::new('city'),
-            TextField::new('region'),
-            TextField::new('adress'),
-            IntegerField::new('zipcode'),
-            NumberField::new('age'),
-            TelephoneField::new('phone'),
-            TextField::new('username'),
-            TextField::new('password')->hideOnIndex(),
-            ChoiceField::new('roles')->setChoices(
-                [
-                    'Administrator' => 'ROLE_ADMIN',
-                    'Utilizator' => 'ROLE_USER',
-                ]
-            ),
+            TextField::new('first_name', 'Nume'),
+            TextField::new('last_name', 'Prenume'),
+            EmailField::new('email', 'E-mail'),
+            TextField::new('country', 'Tara'),
+            TextField::new('city', 'Localitate'),
+            TextField::new('region', 'Judet'),
+            TextField::new('adress', 'Adresa'),
+            IntegerField::new('zipcode', 'Cod postal'),
+            NumberField::new('age', 'Varsta'),
+            TelephoneField::new('phone', 'Telefon'),
+            TextField::new('username', 'Nume utilizator'),
+            TextField::new('password', 'Parola')->hideOnIndex(),
+            Field::new('roles', 'Rol'),
         ];
     }
 

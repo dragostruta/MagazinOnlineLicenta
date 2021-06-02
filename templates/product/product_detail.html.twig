@@ -2,21 +2,247 @@
 
 {% block head %}
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {% block title %}{{ product.title }}{% endblock %}
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <style>
+        .nav{
+            height: 100px;
+            flex-direction: row;
+            box-shadow: 0 2rem 8rem rgba(0,0,0, 0.2);
+            border-radius: .8rem;
+        }
+        .logo{
+            float: left;
+            padding: 5px 150px;
+        }
+        .content{
+            display: inline-block;
+            float: right;
+            padding: 10px 25px;
+            margin-top: 20px;
+            text-align: left;
+            border-bottom-style: none;
+        }
+        .a-content{
+            all: unset;
+            font-family: 'Arial', sans-serif;
+            font-size: 20px;
+            color: black;
+            padding: 14px 25px;
+            border-radius: 100px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .a-content:hover{
+            background-color: #eeeeee;
+            border-bottom-color: #5b5b5b;
+            border-bottom-width: initial;
+        }
+
+
+    </style>
+
+    <div class="nav">
+        <div class="shadow">
+            <div class="logo">
+                <a href="{{ path('home') }}"><img src="{{ asset('/uploads/images/logo/AndomaElectro_logo.jpg') }}" alt="LOGO" style="width: 90px; border-radius: 10px"></a>
+            </div>
+            <div class="content">
+                <a href="{{ path('home') }}" class="a-content">Acasa</a>
+                <a href="{{ path('product_catalog') }} " class="a-content">Catalog de produse</a>
+                <a href="{{ path('news') }}" class="a-content">Oferte si Noutati</a>
+                <a href="{{ path('cart') }}" class="a-content">Cos</a>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}" class="a-content">Deconectare</a><div class="a-content" style="all: unset; font-family: Arial, sans-serif; font-size: 20px; padding-left: 2px; color: #66afe9">Bine ai venit {{ app.user.username }}!</div>
+                {% elseif app.user == null %}
+                    <a href="{{ path('app_login') }}" class="a-content">Inregistrare</a>
+                    <a href="{{ path('register_page') }}" class="a-content">Creaza cont</a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block body %}
     <style>
+
+
+        *{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            font-family: 'Open Sans', sans-serif;
+        }
+        body{
+            line-height: 1.5;
+        }
+        .card-wrapper{
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        img{
+            width: 100%;
+            display: block;
+        }
+        .img-display{
+            overflow: hidden;
+        }
+        .img-showcase{
+            display: flex;
+            width: 100%;
+            transition: all 0.5s ease;
+        }
+        .img-showcase img{
+            min-width: 100%;
+        }
+        .img-select{
+            display: flex;
+        }
+        .img-item{
+            margin: 0.3rem;
+        }
+        .img-item:nth-child(1),
+        .img-item:nth-child(2),
+        .img-item:nth-child(3){
+            margin-right: 0;
+        }
+        .img-item:hover{
+            opacity: 0.8;
+        }
+        .product-content{
+            padding: 2rem 1rem;
+        }
+        .product-title{
+            font-size: 3rem;
+            text-transform: capitalize;
+            font-weight: 700;
+            position: relative;
+            color: #12263a;
+            margin: 1rem 0;
+        }
+        .product-title::after{
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 4px;
+            width: 80px;
+            background: #12263a;
+        }
+        .product-rating span{
+            font-weight: 600;
+            color: #252525;
+        }
+        .product-price{
+            margin: 1rem 0;
+            font-size: 32px;
+            font-weight: 700;
+
+        }
+        .product-price span{
+            font-weight: 600;
+            font-size: 30px;
+        }
+        .product-detail .details{
+            text-transform: capitalize;
+            color: #12263a;
+            padding-bottom: 0.6rem;
+        }
+        .product-detail p{
+            font-size: 0.9rem;
+            padding: 0.3rem;
+            opacity: 0.8;
+        }
+        .purchase-info{
+            margin: 1.5rem 0;
+        }
+        .purchase-info input,
+        .purchase-info .btn{
+            size: 60px;
+            border: 1.5px solid #ddd;
+            border-radius: 25px;
+            text-align: center;
+            padding: 0.45rem 0.8rem;
+            outline: 0;
+            margin-right: 0.2rem;
+            margin-bottom: 1rem;
+        }
+        .purchase-info input{
+            width: 115px;
+        }
+        .purchase-info .btn{
+            cursor: pointer;
+            color: #fff;
+        }
+        .purchase-info .btn:first-of-type{
+            background: #256eff;
+        }
+        .purchase-info .btn:last-of-type{
+            background: #256eff;
+        }
+        .purchase-info .btn:hover{
+            opacity: 0.9;
+        }
+        .detail{
+            text-transform: uppercase;
+            color: #12263a;
+            padding-bottom: 0.6rem;
+        }
+
+        @media screen and (min-width: 992px){
+            .card{
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-gap: 1.5rem;
+            }
+            .card-wrapper{
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .product-imgs{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .product-content{
+                padding-top: 0;
+            }
+        }
         .img-item{
             width: 150px;
             height: auto;
         }
+        .btn-add{
+            all: unset;
+            background-color: #1976d2;
+            font-size: 14px;
+            padding: 8px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+        .btn-add:hover{
+            background-color: #0b348d;
+            transition: 0.6s ease;
+        }
+        .flash-notice{
+            color: green;
+            font-size: 30px;
+            text-align: center;
+            margin-top: 30px;
+        }
     </style>
 
+    {% for message in app.flashes('succes') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
     <link rel="stylesheet" href="{{ asset('css/product_detail.css') }}">
     <div class = "card-wrapper">
         <div class = "card">
@@ -24,31 +250,31 @@
             <div class = "product-imgs">
                 <div class = "img-display">
                     <div class = "img-showcase">
-                        <img src = "{{ product.image }}" alt = "shoe image">
-                        <img src = "{{ product.getImageOne }}" alt = "shoe image">
-                        <img src = "{{ product.getImageTwo }}" alt = "shoe image">
-                        <img src = "{{ product.getImageThree }}" alt = "shoe image">
+                        <img src = "{{ product.image }}" alt = " image">
+                        <img src = "{{ product.getImageOne }}" alt = " image">
+                        <img src = "{{ product.getImageTwo }}" alt = " image">
+                        <img src = "{{ product.getImageThree }}" alt = " image">
                     </div>
                 </div>
                 <div class = "img-select">
                     <div class = "img-item" >
                         <a href = "#" data-id = "1">
-                            <img src = "{{ product.image }}" alt = "shoe image">
+                            <img src = "{{ product.image }}" alt = " image">
                         </a>
                     </div>
                     <div class = "img-item">
                         <a href = "#" data-id = "2">
-                            <img src = "{{ product.getImageOne }}" alt = "shoe image">
+                            <img src = "{{ product.getImageOne }}" alt = " image">
                         </a>
                     </div>
                     <div class = "img-item">
                         <a href = "#" data-id = "3">
-                            <img src = "{{ product.getImageTwo }}" alt = "shoe image">
+                            <img src = "{{ product.getImageTwo }}" alt = " image">
                         </a>
                     </div>
                     <div class = "img-item">
                         <a href = "#" data-id = "4">
-                            <img src = "{{ product.getImageThree }}" alt = "shoe image">
+                            <img src = "{{ product.getImageThree }}" alt = " image">
                         </a>
                     </div>
                 </div>
@@ -80,7 +306,7 @@
                             {{ form_errors(form.quantity) }}
                         </div>
                     </div>
-                    {{ form_widget(form.add, {'attr': {'class': 'btn btn-warning w-25'}}) }}
+                    {{ form_widget(form.add, {'attr': {'class': 'btn-add'}}) }}
                     {{ form_end(form) }}
                 </div>
                 </div>

@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -31,31 +32,32 @@ class NewsCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
-                return $action->setIcon('fas fa-newspaper')->addCssClass('btn btn-succes');
+                return $action->setIcon('fas fa-newspaper')->addCssClass('btn btn-succes')->setLabel('Adauga Oferta');
             })
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
-                return $action->setIcon('fas fa-edit')->addCssClass('btn btn-warning');
+                return $action->setIcon('fas fa-edit')->addCssClass('btn btn-warning')->setLabel('Modifica');
             })
             ->update(Crud::PAGE_INDEX, Action::DETAIL, function (Action $action){
-                return $action->setIcon('fas fa-eye')->addCssClass('btn btn-info');
+                return $action->setIcon('fas fa-eye')->addCssClass('btn btn-info')->setLabel('Vizualizeaza');
             })
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action){
-                return $action->setIcon('fas fa-trash')->addCssClass('btn btn-outline-danger');
+                return $action->setIcon('fas fa-trash')->addCssClass('btn btn-outline-danger')->setLabel('Sterge');
             });
     }
 
     public function configureFields(string $pageName): iterable
     {
-        $imageFile = Field::new('imageFile')
+        $imageFile = Field::new('imageFile', 'Imagine de coperta')
             ->setFormType(VichImageType::class);
-        $image = ImageField::new('Image')
+        $image = ImageField::new('Image', 'Imagine de coperta')
             ->setFormType(VichImageType::class);
         $fields = [
             IntegerField::new('id')
                 ->hideOnForm(),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-            DateField::new('date'),
+            TextField::new('title', 'Titlu'),
+            TextareaField::new('description', 'Descriere'),
+            DateField::new('date', 'Data'),
+            AssociationField::new('product', 'Produs'),
         ];
 
         if($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL){

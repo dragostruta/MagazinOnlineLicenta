@@ -1,26 +1,78 @@
 <!DOCTYPE html>
 <html>
-    <head>
+
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <a href="{{ path('cart') }}" class="btn btn-light">
-            Cart
-        </a>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            <style>
-                body{
-                    background-color: #e6f5ff;
-                }
-            </style>
-        {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
+        {% block head %}
+
+            <style>
+                .nav{
+                    height: 100px;
+                    flex-direction: row;
+                    box-shadow: 0 2rem 8rem rgba(0,0,0, 0.2);
+                    border-radius: .8rem;
+                }
+                .logo{
+                    float: left;
+                    padding: 5px 150px;
+                }
+                .content{
+                    display: inline-block;
+                    float: right;
+                    padding: 10px 25px;
+                    margin-top: 20px;
+                    text-align: left;
+                    border-bottom-style: none;
+                }
+                .a-content{
+                    all: unset;
+                    font-family: 'Arial', sans-serif;
+                    font-size: 20px;
+                    color: black;
+                    padding: 14px 25px;
+                    border-radius: 100px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                }
+                .a-content:hover{
+                    background-color: #eeeeee;
+                    border-bottom-color: #5b5b5b;
+                    border-bottom-width: initial;
+                }
+
+
+            </style>
+
+        <div class="nav">
+                <div class="logo">
+                    <a href="{{ path('home') }}"><img src="{{ asset('/uploads/images/logo/AndomaElectro_logo.jpg') }}" alt="LOGO" width="90px" style="border-radius: 10px"></a>
+                </div>
+                <div class="content">
+
+                    {% if app.user %}
+                        {% if app.user.username == "admin" %}
+                            <a href="{{ path("admin") }}" class="a-content">ADMIN</a>
+
+                        {% endif %}
+                    {% endif %}
+                    <a href="{{ path('home') }}" class="a-content">Acasa</a>
+                    <a href="{{ path('product_catalog') }} " class="a-content">Catalog de produse</a>
+                    <a href="{{ path('news') }}" class="a-content">Oferte si Noutati</a>
+                    <a href="{{ path('cart') }}" class="a-content">Cos</a>
+                    {% if app.user %}
+                    <a href="{{ path('app_logout') }}" class="a-content">Deconectare</a><div class="a-content" style="all: unset; font-family: Arial, sans-serif; font-size: 20px; padding-left: 2px; color: #66afe9">Bine ai venit, {{ app.user.username }}!</div>
+                    {% elseif app.user == null %}
+                        <a href="{{ path('app_login') }}" class="a-content">Inregistrare</a>
+                        <a href="{{ path('register_page') }}" class="a-content">Creaza cont</a>
+                    {% endif %}
+                </div>
+        </div>
+    {% endblock %}
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+
+        {% endblock %}
     </body>
 </html>

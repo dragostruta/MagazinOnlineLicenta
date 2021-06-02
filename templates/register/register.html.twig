@@ -3,7 +3,85 @@
 {% block title %} Pagina de înregistrare {% endblock %}
 
 {% block body %}
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+
+    <style>
+        .main{
+            background-color: #ffffff;
+            width: 700px;
+            height: 700px;
+            margin: 7em auto;
+            border-radius: 1.5em;
+            box-shadow: 0 11px 35px 2px rgba(0, 0, 0, 0.14);
+            padding-top: 10px;
+        }
+        .font-weight-normal{
+            padding-top: 20px;
+            padding-bottom: 25px;
+            color: #33adff;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 30px;
+        }
+        .form-control{
+            width: 76%;
+            color: rgb(38, 50, 56);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            background: rgba(136, 126, 126, 0.04);
+            padding: 10px 20px;
+            border-radius: 20px;
+            outline: none;
+            box-sizing: border-box;
+            border: 2px solid rgba(0, 0, 0, 0.02);
+            margin-left: 42px;
+            text-align: center;
+            margin-bottom: 27px;
+            font-family: sans-serif;
+        }
+        .form-control{
+            border: 2px solid rgba(0,0,0,0.18) !important;
+        }
+        .btn-primary{
+            cursor: pointer;
+            width: auto;
+            border-radius: 5em;
+            color: #fff;
+            background: linear-gradient(to right, #1aa3ff, #4db8ff);
+            border: 0;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            font-family: sans-serif;
+            margin-left: 28%;
+            font-size: 15px;
+            box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+        }
+        .fa-registered{
+            text-shadow: 0 0 3px rgba(117, 117, 117, 0.12);
+            color: #80ccff;
+            margin-top: 70%;
+            margin-left: 67%;
+        }
+        a{
+            text-shadow: 0 0 3px rgba(117, 117, 117, 0.12);
+            color: #33adff;
+            text-decoration: none
+        }
+
+        .error-message{
+            margin: 3em auto;
+            background-color: #ffe0e0;
+            border: 1px #a33a3a;
+            color: #ba3939;
+            width: 700px;
+            border-radius: 1.5em;
+            box-shadow: 0 11px 35px 2px rgba(0, 0, 0, 0.12);
+        }
+    </style>
+
+{#    <link rel="stylesheet" href="{{ asset('css/register.css') }}">#}
 
     <div class="error-message" align="center">
         {{ form_errors(form.email) }}

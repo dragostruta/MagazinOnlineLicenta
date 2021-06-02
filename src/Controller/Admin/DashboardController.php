@@ -29,17 +29,16 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Dashboard');
+            ->setTitle('Panou de administrator');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToCrud('Category', 'fas fa-folder-open', Category::class);
-        yield MenuItem::linkToCrud('ProductCategories', 'fas fa-folder-open', ProductCategory::class);
-        yield MenuItem::linkToCrud('Products', 'fas fa-box', Product::class);
-        yield MenuItem::linkToCrud('News', 'fas fa-newspaper', News::class);
-        yield MenuItem::linkToCrud('Orders', 'fas fa-truck', Order::class);
-        yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class);
-        yield MenuItem::linkToCrud('OrderList', 'fas fa-users', OrderList::class);
+        yield MenuItem::linkToCrud('Categorie', 'fas fa-folder-open', Category::class);
+        yield MenuItem::linkToCrud('Subcategorie', 'fas fa-folder-open', ProductCategory::class);
+        yield MenuItem::linkToCrud('Produse', 'fas fa-box', Product::class);
+        yield MenuItem::linkToCrud('Oferte', 'fas fa-newspaper', News::class);
+        yield MenuItem::linkToCrud('Utilizatori', 'fas fa-users', User::class);
+        yield MenuItem::linkToCrud('Comenzi', 'fas fa-truck', OrderList::class);
     }
 }

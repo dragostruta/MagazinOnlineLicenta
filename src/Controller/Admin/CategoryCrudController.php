@@ -24,16 +24,16 @@ class CategoryCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
-                return $action->setIcon('fas fa-folder-open')->addCssClass('btn btn-succes');
+                return $action->setIcon('fas fa-folder-open')->addCssClass('btn btn-succes')->setLabel('Adauga Categorie');
             })
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
-                return $action->setIcon('fas fa-edit')->addCssClass('btn btn-warning');
+                return $action->setIcon('fas fa-edit')->addCssClass('btn btn-warning')->setLabel('Editeaza');
             })
             ->update(Crud::PAGE_INDEX, Action::DETAIL, function (Action $action){
-                return $action->setIcon('fas fa-eye')->addCssClass('btn btn-info');
+                return $action->setIcon('fas fa-eye')->addCssClass('btn btn-info')->setLabel('Vizualizeaza');
             })
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action){
-               return $action->setIcon('fas fa-trash')->addCssClass('btn btn-outline-danger');
+               return $action->setIcon('fas fa-trash')->addCssClass('btn btn-outline-danger')->setLabel('Sterge');
             });
     }
 
@@ -42,7 +42,8 @@ class CategoryCrudController extends AbstractCrudController
         return [
             IntegerField::new('id')
                         ->hideOnForm(),
-            TextField::new('name'),
+            TextField::new('name')
+                        ->setLabel('Titlu Categorie'),
         ];
     }
 
