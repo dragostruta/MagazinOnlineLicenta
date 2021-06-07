@@ -19,6 +19,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -62,7 +63,7 @@ class UserCrudController extends AbstractCrudController
             TelephoneField::new('phone', 'Telefon'),
             TextField::new('username', 'Nume utilizator'),
             TextField::new('password', 'Parola')->hideOnIndex(),
-            Field::new('roles', 'Rol'),
+            ArrayField::new('roles', 'Rol')->setValue('ROLE_USER'),
         ];
     }
 

@@ -89,7 +89,7 @@ class AppCustomAuthentificatorAuthenticator extends AbstractFormLoginAuthenticat
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-        return new RedirectResponse($this->urlGenerator->generate('index'));
+        return new RedirectResponse($this->urlGenerator->generate('product_catalog'));
     }
 
     protected function getLoginUrl()

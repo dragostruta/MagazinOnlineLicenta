@@ -14,10 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
+
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/{id}", name="product_detail", requirements={"id":"\d+"})
+     * @Route("catalog_de_produse/{title}", name="product_detail", requirements={"{title}":"\d+"})
      */
     public function detail(Product $product, Request $request, CartManager $cartManager)
     {

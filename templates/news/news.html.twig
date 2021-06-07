@@ -97,7 +97,7 @@
                                 <span>Sunday</span>
                                 <span>{{ item.date|date("d/m/Y") }}</span>
                             </div>
-                            <h1 class="blog-post_title"><a href="{{ path('product_detail', {id: item.getProduct.id}) }}">{{ item.title }}</a></h1>
+                            <h1 class="blog-post_title"><a href="{{ path('product_detail', {title: item.getProduct.title}) }}">{{ item.title }}</a></h1>
                             <p class="blog-post_text">{{ item.description }}</p>
                         </div>
                     </div>

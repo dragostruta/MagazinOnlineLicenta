@@ -239,8 +239,6 @@
         }
     </style>
 
-
-
     <section class="container">
         <h1 class="content-header-title">Catalog de produse</h1>
 
@@ -294,7 +292,7 @@
                             <p><b>Pret: </b><span>{{ product.price }} lei</span></p>
                         </div>
                         <div class="button-gorup">
-                            <a href="{{ path('product_detail', {id: product.id}) }}" class="details">Detalii</a>
+                            <a href="{{ path('product_detail', {title: product.title}) }}" class="details">Detalii</a>
                         </div>
                     </div>
             {% endfor %}
